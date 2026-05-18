@@ -6,6 +6,7 @@ const productRoutes = require('./routes/productRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
+const itemRoutes = require('./routes/itemRoutes');
 const { errorHandler } = require("./middlewares/error.middleware");
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/product', productRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/purchase', purchaseRoutes);
+app.use('/item', itemRoutes);
 
 app.use(errorHandler);
 

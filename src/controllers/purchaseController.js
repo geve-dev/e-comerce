@@ -19,14 +19,5 @@ async function createPurchase(req, res, next) {
     }
 }
 
-async function createItem(req, res, next) {
-    try {
-        const { id_product, id_purchase, quantity } = req.body;
 
-        return res.status(200).json({ message: 'Produto adicionado ao carrinho', id_product, id_purchase, quantity });
-    } catch (e) {
-        next(e)
-    }
-}
-
-module.exports = { createPurchase, createItem }
+module.exports = { createPurchase }
