@@ -16,13 +16,15 @@ async function createItem(req, res, next) {
             purchase = await purchaseRepo.createPurchase(id_user);
         }
 
+        const price = await repo.findPriceByProductId(id_product);
+
         const item = await repo.findItemByPurchaseAndProduct(purchase.id, id_product);
         if (item) {
-            const result = await repo.addItemQuantity(purchase.id, id_product, quantity);
+            const result = await repo.addItemQuantity(purchase.id, id_product, quantity, price);
             return res.status(200).json({ message: 'Produto adicionado ao carrinho', result });
         }
 
-        const result = await repo.createItem(id_product, purchase.id, quantity);
+        const result = await repo.createItem(id_product, purchase.id, quantity, price);
 
         return res.status(200).json({ message: 'Produto adicionado ao carrinho', result });
     } catch (e) {
@@ -55,6 +57,12 @@ async function removeItemQuantity(req, res, next) {
             return res.status(200).json({ message: "Item removido do carrinho" });
         }
 
+
+        if (quantity === item.quantity) {
+            await repo.deleteItem(purchase.id, id_product);
+            return res.status(200).json({ message: "Item deletado do carrinho" });
+        }
+
         const result = await repo.removeItemQuantity(purchase.id, id_product, quantity);
         return res.status(200).json({ message: 'Produto removido do carrinho', result });
     } catch (e) {
@@ -66,7 +74,7 @@ async function deleteItem(req, res, next) {
     try {
         const { id_product } = req.body;
         const id_user = req.user.id
-        
+
         if (!id_product) {
             return res.status(400).json({ message: "Produto e quantidade são obrigatórios" });
         }
@@ -83,8 +91,8 @@ async function deleteItem(req, res, next) {
         }
 
         const result = await repo.deleteItem(purchase.id, id_product);
-        return res.status(200).json({ message: 'Produto removido do carrinho', result });
-        
+        return res.status(200).json({ message: 'Produto deletado do carrinho', result });
+
     } catch (e) {
         next(e)
     }
