@@ -36,4 +36,14 @@ async function deleteItem(id_purchase, id_product) {
     return { id_product, id_purchase };
 }
 
-module.exports = { createItem, addItemQuantity, removeItemQuantity, findItemByPurchaseAndProduct, deleteItem, findPriceByProductId }
+async function findItemsByPurchase(id_purchase) {
+  const query = `
+    SELECT i.*, p.name, p.price AS original_price, p.image 
+    FROM items i 
+    JOIN products p ON i.id_product = p.id 
+    WHERE i.id_purchase = 10`;
+    const [result] = await db.query(query, [id_purchase]);
+    return result;
+}
+
+module.exports = { createItem, addItemQuantity, removeItemQuantity, findItemByPurchaseAndProduct, deleteItem, findPriceByProductId, findItemsByPurchase }

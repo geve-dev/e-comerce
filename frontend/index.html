@@ -3,23 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="src/css/styles.css">
+    <title>E-Commerce</title>
 </head>
 <body>
 
     <header class="header">
-        <h1 class="logo">🛒 E-Commerce</h1>
+        <h1 class="logo">E-Commerce</h1>
 
 
-        <button id="btnAbrir">Login</button>
+        <div class="btns">  
+            <button id="carrinho">🛒</button>
+            <button id="abrirLogin">Login</button>
+        </div>
+
+        <div id="popupOverlay2" class="overlay2">
+            <div class="carrinho">
+                <div class="carrinho-header">
+                    <svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 2H6.36364L9.28727 17.3029C9.38703 17.829 9.66026 18.3017 10.0591 18.6381C10.458 18.9744 10.9571 19.1531 11.4691 19.1429H22.0727C22.5847 19.1531 23.0838 18.9744 23.4827 18.6381C23.8816 18.3017 24.1548 17.829 24.2545 17.3029L26 7.71429H7.45455M11.8182 24.8571C11.8182 25.4883 11.3298 26 10.7273 26C10.1248 26 9.63636 25.4883 9.63636 24.8571C9.63636 24.226 10.1248 23.7143 10.7273 23.7143C11.3298 23.7143 11.8182 24.226 11.8182 24.8571ZM23.8182 24.8571C23.8182 25.4883 23.3298 26 22.7273 26C22.1248 26 21.6364 25.4883 21.6364 24.8571C21.6364 24.226 22.1248 23.7143 22.7273 23.7143C23.3298 23.7143 23.8182 24.226 23.8182 24.8571Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                    </svg>
+                    <h2>Carrinho</h2>
+                    <button id="fecharCarrinho">X</button>
+                </div>
+                <div id="carrinhoItems">
+                    <div class="card">
+                        <img src="imagens/section/meninas-01.jpg" alt="Lousa Magnética">
+                        <div class="infos-prod">
+                                  <p><strong>${nome}</strong></p>
+                                  <p class="pecoAntigo">${antigoPreco}</p>
+                                  <p><strong>${preco}</strong></p>
+                                </div>
+                        <button class="adicionar"><i class="fas fa-shopping-cart"></i> Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div id="popupOverlay" class="overlay">
             <div class="login">
-
                 <div class="login-header">
                     <h2>Login</h2>
-                    <button id="btnCancel">X</button>
+                    <button id="fecharLogin">X</button>
                 </div>
 
                 <div class="login-main">
@@ -32,10 +59,8 @@
 
                     <div class="btns">
                         <button id="btnLogin" onclick="login()">Login</button>
-                        <button id="btnCancel">Cancelar</button>
                     </div>
-                </div>
-                    
+                </div>  
             </div>
             
         </div>

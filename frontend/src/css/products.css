@@ -6,10 +6,11 @@
 }
 
 .produto {
-    border: 1px solid #000;
+    border: 1px solid #333;
     padding: 10px;
     border-radius: 5px;
     width: 100px;
+    background-color: white;
 }
 
 .produto button {

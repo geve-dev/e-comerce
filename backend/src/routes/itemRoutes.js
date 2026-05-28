@@ -7,6 +7,7 @@ const itemController = require('../controllers/itemController');
 
 
 router.post('/', authRequired, itemController.createItem);
+router.get('/', authRequired, itemController.getItemsByPurchase);
 router.patch('/', authRequired, itemController.removeItemQuantity);
 router.delete('/', authRequired, itemController.deleteItem);
 

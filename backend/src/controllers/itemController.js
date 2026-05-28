@@ -32,6 +32,23 @@ async function createItem(req, res, next) {
     }
 }
 
+async function getItemsByPurchase(req, res, next) {
+    try {
+      const id_user = req.user.id;
+      
+      const purhcase = await purchaseRepo.findOpenPurchaseByUserId(id_user);
+
+      if (!purhcase) {
+          return res.status(404).json({ message: "Carrinho não encontrado" });
+      }
+
+      const items = await repo.findItemsByPurchase(purhcase.id);
+      return res.status(200).json({ message: 'Itens do carrinho', items });
+    } catch (e) {
+        next(e)
+    }
+}
+
 async function removeItemQuantity(req, res, next) {
     try {
         const { id_product, quantity } = req.body;
@@ -98,4 +115,4 @@ async function deleteItem(req, res, next) {
     }
 }
 
-module.exports = { createItem, removeItemQuantity, deleteItem }
+module.exports = { createItem, getItemsByPurchase, removeItemQuantity, deleteItem }
