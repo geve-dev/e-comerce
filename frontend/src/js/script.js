@@ -23,7 +23,7 @@ document.querySelector('header').addEventListener('click', (event) => {
     }
 
     if (event.target.id === 'carrinho') {
-        popup2.classList.add('active');
+      popup2.classList.add('active');
     }
 
 });
@@ -43,7 +43,6 @@ async function getPurchase() {
   })
 
   let resultado = await res.json();
-  console.log(resultado)
 
   renderPurchase(resultado.items || [])
 }
@@ -62,7 +61,7 @@ async function renderPurchase(items) {
     
     const price    = items[i].original_price;
     const quantity = items[i].quantity;
-    let all = price * quantity;
+    let all = (price * quantity).toFixed(2);
     
       html += `
       <div class="card">
@@ -72,11 +71,11 @@ async function renderPurchase(items) {
         <div class="price">R$ ${items[i].original_price}</div>
         </div>
         <div class="acoes">
-          <button class="delete" data-id="${items[i].id}"><i class="fas fa-trash"></i></button>
+          <!--<button class="delete" data-id="${items[i].id}"><i class="fas fa-trash"></i></button>-->
           <div class="quantity">
-            <button class="remove" data-id="${items[i].id}">-</button>
+            <button class="remove" onClick="removeItem(${items[i].id_product})" data-id="${items[i].id_product}">-</button>
             <span class="quantity">${items[i].quantity}</span>
-            <button class="add" data-id="${items[i].id}">+</button>
+            <button class="add" onClick="addToItems(${items[i].id_product})" data-id="${items[i].id}">+</button>
           </div>
         </div>
         <span>R$ ${all}</span>
@@ -84,6 +83,19 @@ async function renderPurchase(items) {
       `;
     }
     carrinhoItems.innerHTML = html;
+}
+
+async function removeItem(id) { 
+  const res = await fetch(`http://localhost:3003/item`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    },
+    body: JSON.stringify({ id_product:id, quantity: 1 })
+  })
+  
+  getPurchase()
 }
 
 async function getProducts() {
@@ -98,7 +110,6 @@ async function getProducts() {
 }
 
 async function renderProducts(dados) {
-  console.log(dados);
   const produtos = document.querySelector('.produtos');
   let html = '';
 
@@ -131,7 +142,6 @@ async function renderProducts(dados) {
 }
 
 async function addToItems(id_product) {
-  
   const res = await fetch(`http://localhost:3003/item`, {
     method: 'POST',
     headers: {
@@ -143,7 +153,7 @@ async function addToItems(id_product) {
   
 
   const resultado = await res.json();
-  console.log(resultado.message);
+  getPurchase();
 }
 
 async function login() {
