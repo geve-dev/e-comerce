@@ -4,12 +4,12 @@ const bcrypt = require('bcrypt');
 
 async function register(req, res, next) {
     try {
-            const { name, email, password, role } = req.body;
+            const { name, email, password } = req.body;
             const existUser = await repo.findUserByEmail(email);
         if (existUser) return res.status(409).json({ message: "E-mail já cadastrado"});
 
         const hash = await bcrypt.hash(password, 10);
-        await repo.createUser(name, email, hash, role);
+        await repo.createUser(name, email, hash);
         res.status(201).json({ message: "Usuário criado"})
     } catch (e) { next(e); }
 }

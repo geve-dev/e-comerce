@@ -5,6 +5,7 @@ const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const userStore = require('./routes/storeRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const itemRoutes = require('./routes/itemRoutes');
 const { errorHandler } = require("./middlewares/error.middleware");
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/product', productRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/store', userStore);
 app.use('/purchase', purchaseRoutes);
 app.use('/item', itemRoutes);
 

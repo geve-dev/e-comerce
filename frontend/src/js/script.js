@@ -50,12 +50,23 @@ async function getPurchase() {
 async function renderPurchase(items) {
   const carrinhoItems = document.getElementById('carrinhoItems');
 
-  let html = '';
-
   if (!items || items.length === 0) {
-    carrinhoItems.innerHTML = '<p>Carrinho vazio</p>';
+    const isLogged = getStatus();
+    
+    carrinhoItems.innerHTML = isLogged
+      ? `<div class="empty-cart">
+            <p>Seu carrinho está vazio.</p>
+            <button onClick="window.location.href='index.html'">Continuar comprando</button>
+          </div>`
+      : `<div class="empty-cart">
+            <p>Seu carrinho está vazio.</p>
+            <p>Faça login para salvar seus itens!</p>
+            <button onClick="window.location.href='index.html'">Continuar comprando</button>
+          </div>`;
     return;
   }
+  
+  let html = '';  
   
   for (let i = 0; i < items.length; i++) {
     
@@ -110,7 +121,8 @@ async function getProducts() {
 }
 
 async function renderProducts(dados) {
-  const produtos = document.querySelector('.produtos');
+  console.log(dados);
+  const produtos = document.querySelector('.produtos-section');
   let html = '';
 
   for (let i = 0; i < dados.length; i++){
@@ -122,19 +134,21 @@ async function renderProducts(dados) {
     const image       = dados[i].image;
     
     html += `
-    <div class="produto">
-      <div class="produto-header">
-            <img src="${image}" alt="">
-      </div>
-        
-        <div class="produto-main">
-            <p>${name}</p>
-            <span>${description}</span>
-            <p>R$ ${price}</p>
+    <div class="produtos">
+      <div class="produto">
+        <div class="produto-header">
+              <img src="${image}" alt="">
         </div>
-  
-        <button onClick="addToItems(${id_product})">+</button>
-    </div>
+          
+          <div class="produto-main">
+              <p>${name}</p>
+              <span>${description}</span>
+              <p>R$ ${price}</p>
+          </div>
+    
+          <button onClick="addToItems(${id_product})"><i class="fa-solid fa-cart-plus"></i></button>
+        </div>
+      </div>
     `;
   }
 
@@ -181,6 +195,7 @@ async function login() {
   popup.classList.remove('active');
 
   renderPerfil();
+  getPurchase();
 }
 
 async function renderPerfil() {
