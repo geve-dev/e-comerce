@@ -121,7 +121,6 @@ async function getProducts() {
 }
 
 async function renderProducts(dados) {
-  console.log(dados);
   const produtos = document.querySelector('.produtos-section');
   let html = '';
 
@@ -174,7 +173,6 @@ async function login() {
   const form = document.getElementById('fl');
   const dados = new FormData(form);
   const valores = Object.fromEntries(dados.entries());
-  console.log(valores)
 
   
   const res = await fetch(`http://localhost:3003/auth/login`, {
@@ -188,8 +186,6 @@ async function login() {
   if (res.status == 200) {
     localStorage.setItem('token', resultado.token);
     localStorage.setItem('userName', resultado.name);
-    console.log(resultado);
-    console.log('Logado com sucesso!');
   }
   
   popup.classList.remove('active');
