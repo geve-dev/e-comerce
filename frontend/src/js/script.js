@@ -184,9 +184,11 @@ async function getProducts() {
   let url = 'http://localhost:3003/product';
   try {
     const res = await fetch(url);
+    
     if (!res.ok) {
         throw new Error('Falha ao obter produtos');
     }
+    
     let response = await res.json();
     renderProducts(response);
   } catch (error) {

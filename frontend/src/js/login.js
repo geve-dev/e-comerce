@@ -32,8 +32,9 @@ async function login() {
         window.location.href = 'index.html'; // Redireciona para a página principal para usuários comuns
       }
     } else {
-      // Tratar erros de login aqui (ex: credenciais inválidas)
-      alert(resultado.message || "Erro ao fazer login. Verifique suas credenciais.");
+      const loginError = document.querySelector('.login-error');
+      loginError.innerHTML = `Não foi possível fazer login. Verifique suas credenciais.`;
+      return;
     }
   } catch (error) {
     console.error("Erro na requisição de login:", error);

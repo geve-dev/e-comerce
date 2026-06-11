@@ -22,10 +22,11 @@ async function register() {
     const resultado = await res.json();
 
     if (res.status === 200) {
-      alert(resultado.message || "Registro realizado com sucesso!");
       window.location.href = 'login.html';
     } else {
-      alert(resultado.message || "Erro ao fazer registro. Verifique suas credenciais.");
+      const registerError = document.querySelector('.register-error');
+      registerError.innerHTML = `E`;
+      return;
     }
     
   } catch (error) {

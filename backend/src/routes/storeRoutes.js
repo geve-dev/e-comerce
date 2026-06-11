@@ -8,6 +8,8 @@ const storeController = require('../controllers/storeController');
 
 router.post('/', authRequired, storeController.postStore);
 router.get('/', authRequired, storeController.getAllStore);
+router.get('/products', storeController.getProductsByStore);
+router.get('/active', storeController.getStoreActive);
 router.get('/pending', authRequired, modOrAdminRequired, storeController.getStorePending);
 
 module.exports = router;
