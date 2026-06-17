@@ -91,11 +91,11 @@ async function renderPurchase(items) {
   if (!items || items.length === 0) {
     const isLogged = getStatus();
     carrinhoItems.innerHTML = isLogged
-      ? `<div class="empty-cart">
+      ? `<div class="emptyCart">
             <p>Seu carrinho está vazio.</p>
             <button onClick="window.location.href='index.html'">Continuar comprando</button>
           </div>`
-      : `<div class="empty-cart">
+      : `<div class="emptyCart">
             <p>Seu carrinho está vazio.</p>
             <p>Faça login para salvar seus itens!</p>
             <button onClick="window.location.href='index.html'">Continuar comprando</button>
