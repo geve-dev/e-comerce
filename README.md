@@ -167,7 +167,7 @@ Licença: ISC (ver `backend/package.json`).
 
 ## Autor
 
-Geve — https://github.com/geve-dev/e-comerce
+Geve — https://github.com/geve-dev/e-commerce
 
 
 --
